@@ -16,7 +16,7 @@ I'm just sharing **how I personally run my code** ⬇️
 cargo run
 ```
 
-### 🧩 Run an **example file**
+### 🧩 Run an **example file** (All Notes are here)
 ```bash
 cargo run --example <file_name>
 ```
