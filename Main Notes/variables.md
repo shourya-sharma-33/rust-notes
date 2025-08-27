@@ -1,3 +1,4 @@
+
 ## Variable Basics
 1. Assigned using `let` keyword  
 2. Print to standard output by `print!()` or `println!()`  
