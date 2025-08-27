@@ -1,46 +1,50 @@
-```
-// for ranges we have to understand some concepts
-// everything is number in the end of the day 
-// so are abc's, so what we should know is
-// when iterating from a to z, z will be excluded, because
-// z was never an alphabet like human language, it was a ASCII value
+## Ranges in Rust
 
-// now we will make a code to iterate over number from -3 to 2, like sum
+### Iterating Over Ranges
+```rust
+// For ranges, we need to understand a few concepts.
+// Everything is a number in the end — even characters like a, b, c.
+// When iterating from 'a' to 'z', remember that 'z' is also represented as an ASCII value.
+// In Rust, ranges are exclusive of the upper bound by default unless specified otherwise.
 
 fn main() {
-    let mut sum : i32 = 0; //-5 will be the answr
+    let mut sum: i32 = 0; // Final answer will be -5
 
-    for i in -3..2 { 
+    for i in -3..2 {
         sum += i;
     }
 
     assert!(sum == -5);
-    // code ran because sum came to be -5
-    // also range excludes the last one
-    // except if we put ..=<last> like in example below
-    
+    // Code ran because the sum came out to be -5.
+    // By default, ranges exclude the last value.
+    // To include the last value, we can use '..=' instead.
 
     for j in 'a'..='z' {
         println!("{}", j);
     }
-
 }
-```
+````
 
+---
 
-```
+### Using `Range` and `RangeInclusive` from the Standard Library
 
+```rust
 use std::ops::{Range, RangeInclusive};
-// really no one uses it but its us importing from standard library the ops modyle and these functions
+// We're importing the Range types from the standard library.
+// Although rarely used directly, this shows how Rust internally handles ranges.
 
-fn main () {
-    assert_eq!((1..5), Range{start:1, end: 5});
-    assert_eq!((1..=5), RangeInclusive::new(1,5));
+fn main() {
+    assert_eq!((1..5), Range { start: 1, end: 5 });
+    assert_eq!((1..=5), RangeInclusive::new(1, 5));
     println!("successsss :3");
 }
+```
 
-//    Compiling hello v0.1.0 (C:\Users\Dell\Downloads\hello)
-//     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.80s
-//      Running `target\debug\examples\range.exe`
-// // successsss :3
+### Output
+
+```txt
+successsss :3
+```
+
 ```
