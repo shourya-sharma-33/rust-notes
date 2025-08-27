@@ -36,10 +36,10 @@
 // so we can lower the prescision by defining a f32 type
 
 
-fn main () {
-    assert!(9.6 as f32 / 3.2 as f32 == 3.0 as f32);
-    println!("success");
-}
+// fn main () {
+//     assert!(9.6 as f32 / 3.2 as f32 == 3.0 as f32);
+//     println!("success");
+// }
 
 // >>
 //    Compiling hello v0.1.0 (C:\Users\Dell\Downloads\hello)

@@ -119,7 +119,8 @@ fn main () {
 // assertion failed: 0.1 + 0.2 == 0.3
 // note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 // error: process didn't exit successfully: `target\debug\examples\datatypes.exe` (exit code: 101)
-
+```
+```
 fn main () {
     assert!(0.1_f32 + 0.2_f32 == 0.3_f32);
     println!("success :3")
@@ -131,4 +132,74 @@ fn main () {
 //     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.44s
 //      Running `target\debug\examples\datatypes.exe`
 // success :3
+```
+
+```
+
+// there should be no doubt in the fact that charaters are numbers under the hood, what if we wanna print the ASCII code
+
+ fn main () {
+     for i in 'a'..='e' {
+         println!("{}", i as u16)
+     }
+ }
+
+//   Compiling hello v0.1.0 (C:\Users\Dell\Downloads\hello)
+//     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.46s
+//      Running `target\debug\examples\datatypes.exe`
+// 97
+// 98
+// 99
+// 100
+// 101
+```
+```
+// rust makes a distinction between char and string
+// string by "" double quotes
+// andd char type by single quote
+
+
+ fn main () {
+     let c1: char = "अ"; // this is a string cuzza double string
+     print_char(c1);
+ }
+
+ fn print_char(c: char) {
+     println!("{}", c);
+ }
+
+// this is the issue
+//     |
+// 155 |     let c1: char = "अ"; // this is a string cuzza double ...
+//     |             ----   ^^^ expected `char`, found `&str`        
+//     |             |
+//     |             expected due to this
+//     |
+// help: if you meant to write a `char` literal, use single quotes   
+//     |
+// 155 -     let c1: char = "अ"; // this is a string cuzza double string
+// 155 +     let c1: char = 'अ'; // this is a string cuzza double string
+//     |
+
+// For more information about this error, try `rustc --explain E0308`.error: could not compile `hello` (example "datatypes") due to 1 previous 
+
+
+
+```
+```
+
+fn main () {
+    let c1: char = 'अ'; // now should run
+    print_char(c1);
+}
+
+fn print_char(c: char) {
+    println!("{}", c);
+}
+
+//    Compiling hello v0.1.0 (C:\Users\Dell\Downloads\hello)
+//     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.50s
+//      Running `target\debug\examples\datatypes.exe`
+// अ
+
 ```

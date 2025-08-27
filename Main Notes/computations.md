@@ -62,7 +62,4 @@ fn main () {
 //      Running `target\debug\examples\computations.exe`
 // success
 // PS C:\Users\Dell\Downloads\hello> 
-
-
-
 ```
