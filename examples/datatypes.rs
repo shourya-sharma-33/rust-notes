@@ -179,16 +179,60 @@
 
 
 
-fn main () {
-    let c1: char = 'अ'; // now should run
-    print_char(c1);
-}
+// fn main () {
+//     let c1: char = 'अ'; // now should run
+//     print_char(c1);
+// }
 
-fn print_char(c: char) {
-    println!("{}", c);
-}
+// fn print_char(c: char) {
+//     println!("{}", c);
+// }
 
 //    Compiling hello v0.1.0 (C:\Users\Dell\Downloads\hello)
 //     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.50s
 //      Running `target\debug\examples\datatypes.exe`
 // अ
+
+
+
+
+//=====================================================
+
+
+// fn main () {
+//     let t: (String, String) = (String::from("hello"), String::from("world"));
+//     println!("{}",t);
+// }
+
+
+// this will show an error
+// because t is not string type, but a 2 string tuple
+
+// PS C:\Users\Dell\Downloads\hello> cargo run --example datatypes
+//    Compiling hello v0.1.0 (C:\Users\Dell\Downloads\hello)
+// error[E0277]: `(String, String)` doesn't implement `std::fmt::Display`
+//    --> examples\datatypes.rs:204:19
+//     |
+// 204 |     println!("{}",t);
+//     |               --  ^ `(String, String)` cannot be formatted with the default formatter
+//     |               |
+//     |               required by this formatting parameter
+//     |
+//     = help: the trait `std::fmt::Display` is not implemented for `(String, String)`
+//     = note: in format strings you may be able to use `{:?}` (or {:#?} for pretty-print) instead
+//     = note: this error originates in the macro `$crate::format_args_nl` which comes from the expansion of the macro `println` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+// For more information about this error, try `rustc --explain E0277`. 
+// error: could not compile `hello` (example "datatypes") due to 1 previous error
+
+
+
+fn main () {
+    let t: (String, String) = (String::from("hello"), String::from("world"));
+    println!("{:?}",t);
+}
+
+//    Compiling hello v0.1.0 (C:\Users\Dell\Downloads\hello)
+//     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.48s
+//      Running `target\debug\examples\datatypes.exe`
+// ("hello", "world")

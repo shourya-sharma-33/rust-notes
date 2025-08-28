@@ -245,5 +245,92 @@ Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.50s
 Running `target\debug\examples\datatypes.exe`
 अ
 ```
+### String vs &str
 
+String is hard coded in binary meaning the space for it is same always
+
+&str is string literal and we can mutate it to store anylong string and is expandable
+
+kinda like for u8 datatype
+we can change its value from one number to another between 0 to 255 cuz space exist to hold them cuz 
+
+will discuss more later                         
+
+### `Box::new(5);`
+
+stores directly on heap and x is pointing towards the heap
+
+```
+fn main () {
+    let x : Box<i32> = Box::new(5);
+
+    let mut y : Box<i32> = Box::new(1);
+
+    *y = 4;
+    assert_eq!(*x, 5);
+    println!("successss :3");
+}
+```
+
+there is alot to soak in in this snippet, lets break down and go topic by topic
+understanding each line in detail
+1. `let x : Box<i32> = Box::new(5);`
+this tells that, a variable `x` is pointing towards data (in datatype i32) storing 5 in the **heap memory**
+
+2. `let mut y : Box<i32> = Box::new(1);`
+this tells that, a mutable pointer (important cuz we gonna mutate it too if we dont put mutable it will return an error) pointing towards a 1i32 in heap memoryy
+
+3. `*y = 4;`
+this says that y is now pointing towards a 4 in heap memory, this star is important cuz y = 4 and *y = 4 mean diffrent
+it says
+data where y is pointing is now 4
+this will later be used as well
+
+4. ` assert_eq!(*x, 5);`
+we dont compare x as is, we have to Specify, that x is pointing to what value
+u may interpret it as
+compare the data to which x is pointing and 5
+
+## string output
+
+```
+
+
+fn main () {
+    let t: (String, String) = (String::from("hello"), String::from("world"));
+    println!("{}",t);
+}
+// this will show an error
+// because t is not string type, but a 2 string tuple
+
+// PS C:\Users\Dell\Downloads\hello> cargo run --example datatypes
+//    Compiling hello v0.1.0 (C:\Users\Dell\Downloads\hello)
+// error[E0277]: `(String, String)` doesn't implement `std::fmt::Display`
+//    --> examples\datatypes.rs:204:19
+//     |
+// 204 |     println!("{}",t);
+//     |               --  ^ `(String, String)` cannot be formatted with the default formatter
+//     |               |
+//     |               required by this formatting parameter
+//     |
+//     = help: the trait `std::fmt::Display` is not implemented for `(String, String)`
+//     = note: in format strings you may be able to use `{:?}` (or {:#?} for pretty-print) instead
+//     = note: this error originates in the macro `$crate::format_args_nl` which comes from the expansion of the macro `println` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+// For more information about this error, try `rustc --explain E0277`. 
+// error: could not compile `hello` (example "datatypes") due to 1 previous error
+
+
+```
+```
+
+fn main () {
+    let t: (String, String) = (String::from("hello"), String::from("world"));
+    println!("{:?}",t);
+}
+
+//    Compiling hello v0.1.0 (C:\Users\Dell\Downloads\hello)
+//     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.48s
+//      Running `target\debug\examples\datatypes.exe`
+// ("hello", "world")
 ```
