@@ -119,4 +119,130 @@ println!("{},{},{}", r1, r2, r3);
 
 ```
 
+let mut s = String::from("hello");
+
+let r1 = &s;
+let r2 = &s;
+print("{}, {}", r1, r2);
+//now we just have to make sure after declaration r3 refrence, r1 and r2 arent used
+
+let r3 = &mut s; //no problem
+println!("{}", r3);
+```
+
+-----
+
+❌
+
+```
+fn main () {
+    let refrence_to_nothing = dangle();
+}
+fn dangle() -> &String {
+    let s = String::from("hello");
+    &s
+}
+```
+here we are returning a refrence, and that is out of scope, so we are refrencing to something out of scope so bad practice
+
+
+-------------
+
+```
+fn main () {
+    let x: i32 = 5;
+    let y: &i32 = &x;
+
+    assert_eq!(5, *y);
+    println!("sccess");
+}
+
+// PS C:\Users\Dell\Downloads\hello> cargo run --example borrowing
+//    Compiling hello v0.1.0 (C:\Users\Dell\Downloads\hello)
+//     Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.65s
+//      Running `target\debug\examples\borrowing.exe`
+// sccess
+// PS C:\Users\Dell\Downloads\hello> 
+
+
+```
+
+```
+
+// how to know memory adress
+
+fn main () {
+    let x : i32 = 5;
+    let p : &i32 = &x;
+
+    println!("the memory adress of x is {:p}",p);
+}
+
+// sccess
+// PS C:\Users\Dell\Downloads\hello> cargo run --example borrowing
+//    Compiling hello v0.1.0 (C:\Users\Dell\Downloads\hello)
+//     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.69s
+//      Running `target\debug\examples\borrowing.exe`
+// the memory adress of x is 0x329a9ffa8c
+```
+
+----------
+
+## `ref` and `&` are same
+
+```
+
+fn main () {
+    let c : char = 'अ';
+    let r1 : &char = &c;
+    let ref r2 = c;
+
+    // both are same
+    // r1 where we use &
+    // r2 where we use ref
+
+    assert_eq!(*r1, *r2);
+    assert_eq!(get_addr(r1), get_addr(r2));
+    // we check if memory address is same
+    println!("success :3");   
+}
+fn get_addr(r: &char) -> String {
+    format!("{:p}", r)
+}
+```
+ ## we cant pass an mutable refrence to something immutable
+
+
+❌ an error will return 
+```
+fn main () {
+    let s : String = String::from("hello, ");
+    borrow_object(&mut s);
+    println!("Success:3");
+}
+fn borrow_object(s : &mut String) {
+
+}
+```
+✅ here we are intialising s as mutable 
+```
+fn main () {
+    let mut s : String = String::from("hello, ");
+    borrow_object(&mut s);
+    println!("Success:3");
+}
+fn borrow_object(s : &mut String) {
+
+}
+```
+## we can borrow an immutable object as mutable
+
+```
+fn main () {
+    let mut s : String = String::from("hello, ");
+    borrow_object(&s);
+    s.push_str("world");
+    println!("success");
+}
+fn borrow_object(s : &String) {}
 ```

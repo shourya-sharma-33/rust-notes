@@ -17,16 +17,18 @@ fn main () {
     struct Person {
         name : String, // a string (not &str)
         age : Box<u8>, // stored in heap memory
-        salary_in_lpa : u8 // this is stored in stack
+        salary_in_lpa : u8, // this is stored in stack
+        is_femboy : bool 
     }
 
     let shourya : Person = Person {
         name : String::from("Shourya Sharma"),
         age : Box::new(20),
-        salary_in_lpa : 100
+        salary_in_lpa : 100,
+        is_femboy : true
     };
 
-    let Person {name, ref age, salary_in_lpa} = shourya;
+    let Person {name, ref age, salary_in_lpa, is_femboy} = shourya;
 
     // now we will check diffrent stuff and comment out the outcome to understand whats up
     //===========(test1)==================================
