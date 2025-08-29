@@ -12,77 +12,176 @@
 // as a whole, however the parts that are only refrenced (and not moved) can still be used
 
 
-fn main () {
-    #[derive(Debug)]
-    struct Person {
-        name : String, // a string (not &str)
-        age : Box<u8>, // stored in heap memory
-        salary_in_lpa : u8, // this is stored in stack
-        is_femboy : bool 
-    }
+// fn main () {
+//     #[derive(Debug)]
+//     struct Person {
+//         name : String, // a string (not &str)
+//         age : Box<u8>, // stored in heap memory
+//         salary_in_lpa : u8, // this is stored in stack
+//         is_femboy : bool 
+//     }
 
-    let shourya : Person = Person {
-        name : String::from("Shourya Sharma"),
-        age : Box::new(20),
-        salary_in_lpa : 100,
-        is_femboy : true
-    };
+//     let shourya : Person = Person {
+//         name : String::from("Shourya Sharma"),
+//         age : Box::new(20),
+//         salary_in_lpa : 100,
+//         is_femboy : true
+//     };
 
-    let Person {name, ref age, salary_in_lpa, is_femboy} = shourya;
+//     let Person {name, ref age, salary_in_lpa, is_femboy} = shourya;
 
-    // now we will check diffrent stuff and comment out the outcome to understand whats up
-    //===========(test1)==================================
-    // println!("{},{},{}, are name age and salary respectively", name, age, salary_in_lpa)
+//     // now we will check diffrent stuff and comment out the outcome to understand whats up
+//     //===========(test1)==================================
+//     // println!("{},{},{}, are name age and salary respectively", name, age, salary_in_lpa)
 
-    //        Compiling hello v0.1.0 (C:\Users\Dell\Downloads\hello)
-    //     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.99s
-    //      Running `target\debug\examples\struct.exe`
-    // Shourya Sharma,20,100, are name age and salary respectively
+//     //        Compiling hello v0.1.0 (C:\Users\Dell\Downloads\hello)
+//     //     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.99s
+//     //      Running `target\debug\examples\struct.exe`
+//     // Shourya Sharma,20,100, are name age and salary respectively
 
-    //==========(test2)=============================
-    // now sincee we are doing three diffrent things with the data
-    // one we are refrencing and one we are changing ownership and one which isnt that type of data
-    // now lets see after declaring the data we will wonder if we access the data
-    //==============(testing with changing the ownership)==================
+//     //==========(test2)=============================
+//     // now sincee we are doing three diffrent things with the data
+//     // one we are refrencing and one we are changing ownership and one which isnt that type of data
+//     // now lets see after declaring the data we will wonder if we access the data
+//     //==============(testing with changing the ownership)==================
     
-    // println!("{}", shourya.name)
+//     // println!("{}", shourya.name)
 
-    // an error came
-    //     error[E0382]: borrow of moved value: `shourya.name`
-    //   --> examples\struct.rs:45:20
-    //    |
-    // 29 |     let Person {name, ref age, salary_in_lpa} = shourya;
-    //    |                 ---- value moved here
-    // ...
-    // 45 |     println!("{}", shourya.name)
-    //    |                    ^^^^^^^^^^^^ value borrowed here after move
-    //    |
+//     // an error came
+//     //     error[E0382]: borrow of moved value: `shourya.name`
+//     //   --> examples\struct.rs:45:20
+//     //    |
+//     // 29 |     let Person {name, ref age, salary_in_lpa} = shourya;
+//     //    |                 ---- value moved here
+//     // ...
+//     // 45 |     println!("{}", shourya.name)
+//     //    |                    ^^^^^^^^^^^^ value borrowed here after move
+//     //    |
     
 
 
-    //=====================(lets test for the moved one)=====================
+//     //=====================(lets test for the moved one)=====================
 
-    // println!("{}", shourya.age)
-    
-    
-    // // age is refrencing
-    //       --> examples\struct.rs:29:32
-    //    |
-    // 29 |     let Person {name, ref age, salary_in_lpa} = shourya;
-    //    |                                ^^^^^^^^^^^^^ help: try ignoring the field: `salary_in_lpa: _`
-
-    // warning: `hello` (example "struct") generated 2 warnings
-    //     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.03s
-    //      Running `target\debug\examples\struct.exe`
-    // 20
-
-    //============================(now the salary one should work fine)
-    // println!("{}", shourya.salary_in_lpa)   
+//     // println!("{}", shourya.age)
     
     
-    // }   warning: `hello` (example "struct") generated 3 warnings
-    //     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.57s
-    //      Running `target\debug\examples\struct.exe`
-    // 100
+//     // // age is refrencing
+//     //       --> examples\struct.rs:29:32
+//     //    |
+//     // 29 |     let Person {name, ref age, salary_in_lpa} = shourya;
+//     //    |                                ^^^^^^^^^^^^^ help: try ignoring the field: `salary_in_lpa: _`
+
+//     // warning: `hello` (example "struct") generated 2 warnings
+//     //     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.03s
+//     //      Running `target\debug\examples\struct.exe`
+//     // 20
+
+//     //============================(now the salary one should work fine)
+//     // println!("{}", shourya.salary_in_lpa)   
+    
+    
+//     // }   warning: `hello` (example "struct") generated 3 warnings
+//     //     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.57s
+//     //      Running `target\debug\examples\struct.exe`
+//     // 100
+// }
+
+
+//=====================================================================================================================
+
+// struct Person {
+//     name : String,
+//     age : u8,
+//     hobby : String
+// }
+
+// fn main () {
+//     let age : u8 = 30;
+//     let p : Person = Person {
+//         name : String::from("shourya");
+//         age,
+//         hobby : String::from("being gay and homosexyal and liking men");
+//     };
+
+//     println!("success");
+// }
+
+// //    Compiling hello v0.1.0 (C:\Users\Dell\Downloads\hello)
+// //     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.43s
+// //      Running `target\debug\examples\tuple.exe`
+// // Success
+
+
+//====================================================================================
+
+// struct Unit;
+// trait SomeTrait {
+//     // some behavior defined here
+// }
+
+// impl SomeTrait for Unit { }
+// fn main () {
+//     let u = Unit;
+//     do_something_with_unit(u);
+//     println!("asasasas");
+// }
+
+// //     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.02s
+// //      Running `target\debug\examples\tuple.exe`
+// // Success
+
+
+
+// struct Color(i32, i32, i32);
+// struct Point(i32, i32, i32);
+
+// fn main () {
+//     let v : Point = Point(0, 127, 255);
+//     check_color(v);
+//     println!("succss");
+// }
+// fn check_color(p: Point) {
+//     let (x, _, z) = p;
+//     assert_eq!(x, 0);
+//     assert_eq!(p.1, 127);
+//     assert_eq!(z, 255);
+// }    
+
+// // Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.02s
+// //      Running `target\debug\examples\tuple.exe`
+// // Success
+
+// struct Person () {
+//     name : String,
+//     age : u8
+// }
+
+// fn main () {
+//     let age : u8 = 18;
+//     let mut p : Person = Person {
+//         name : String::from("shourya");
+//         age,
+//     };
+
+//     p.age = 30;
+
+//     p.name = String::from("sharma");
+//     println!("success");
+// }
+
+//     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.02s
+//      Running `target\debug\examples\tuple.exe`
+// Success
+
+
+struct Person {
+    name : String,
+    age : u8,
+}
+fn main() {
+    println!("success");
 }
 
+fn build_person(name: String, age: u8) -> Person {
+    person {}
+}

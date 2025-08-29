@@ -88,3 +88,116 @@ fn main () {
 // success
 ```
 
+
+
+-----------
+
+
+```
+fn main () {
+    let arr : [i32 ;5] = [1,2,3,4,5];
+    let slice : &[i32] = &arr[1..4];
+    assert_eq!(slice, &[2,3,4]);
+    println!("success");
+
+}
+
+//    Compiling hello v0.1.0 (C:\Users\Dell\Downloads\hello)
+//     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.75s
+//      Running `target\debug\examples\str.exe`
+// success
+
+```
+
+## [0..n] and [..n] mean the same
+
+```fn main () {
+    let s: String = String::from("hello");
+    assert_eq!(&s[0..2], &s[..2]);
+    println!("success")
+}
+
+//    Compiling hello v0.1.0 (C:\Users\Dell\Downloads\hello)
+//     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.86s
+//      Running `target\debug\examples\str.exe`
+// success
+```
+
+## diffrent unicode char take diffent bits
+
+```
+
+fn main () {
+    let s: String = String::from("hello");
+    let s2: String = String::from("शौर्य");
+    assert_eq!(&s[0..2], &s[..2]);
+    println!("{}, {}", &s[0..2],&s2[0..2])
+ }
+
+// byte index 2 is not a char boundary; it is inside 'श' (bytes 0..3) 
+// of `शौर्य`
+// note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+// error: process didn't exit successfully: `target\debug\examples\str.exe` (exit code: 101)
+```
+now we will see that sh in hindi takes 4 bytes and when illl do it itd work
+
+```
+
+
+
+fn main () {
+    let s2: String = String::from("शौर्य");
+    println!("{}",&s2[0..3])
+ }
+
+//  हिन्दी वाले तीन लगते है 
+//     Compiling hello v0.1.0 (C:\Users\Dell\Downloads\hello)
+//     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.47s
+//      Running `target\debug\examples\str.exe`
+// श
+```
+
+-----------
+this snippet will be a bit too much to soak it at ones
+we will first understand the issue and then we will solve, and this question will also teach u alot
+
+
+```fn mut () {
+    let mut s: String = String::from("hello world");
+//       |
+//       |   {we took String and Used &str}
+// &String is converted to &str
+//       |__________________
+//                          |
+    let world = first_word(&s);
+//                          |
+//                          |
+// (clear will take a mutablee refrence but now &String will be converted to &str)
+//                          |
+//                          |
+//      _____________________
+//      |
+//      |                    
+    s.clear(); //issue here
+    println!("the first word is : {}", word);
+}
+fn first_word(s: &str) -> &str {
+    &s[..1]
+}
+
+```
+
+now lets fix
+
+```
+fn main () {
+    let mut s : String = String::from("hello world");
+    let word : &str = first_word(&s);
+    println!("the first word is : {}", word);
+    s.clear();
+}
+fn first_word(s: &str) -> &str {
+    &s[..1]
+}
+
+```
