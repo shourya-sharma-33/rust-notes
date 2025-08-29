@@ -285,7 +285,7 @@ fn main() {
     let x : String =  String::from("hello");
     let y : String = x;
 
-    println!("{},{}",x,y);
+    println!(`"{},{}",x,y);
 }
 
 // here x should not print since ownership transfer is taking place

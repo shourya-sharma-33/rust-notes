@@ -151,14 +151,65 @@
 // success
 
 
-fn main () {
-    let s1 : String = String::from("meowmeowmeowmeow");
-    let h : &str = &s1[0..1];
-    println!("{}", h);
+// fn main () {
+//     let s1 : String = String::from("meowmeowmeowmeow");
+//     let h : &str = &s1[0..1];
+//     println!("{}", h);
     
-}
+// }
 
 //    Compiling hello v0.1.0 (C:\Users\Dell\Downloads\hello)
 //     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.53s
 //      Running `target\debug\examples\str.exe`
 // m
+
+
+// fn main () {
+//     let arr0 = [1, 2, 3];
+//     let arr : [_; 3] = ['a', 'b', 'c'];
+//     // this underscore says compiler will pick its own type
+    
+//     // arrays are stack allocated
+//     // char takes 4 bytes in rust : unicode char
+
+//     assert!(std::mem::size_of_val(&arr) == 4*3);
+
+//     println!("succeess :3")
+// }
+
+// warning: `hello` (example "str") generated 1 warning
+//     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.51s
+//      Running `target\debug\examples\str.exe`
+// succeess :3
+
+// refer to the md for this
+
+// fn main () {
+//     let arr: [char; 3] = ['क', 'ख', 'म']; 
+
+//     let slice = &arr[..2];
+
+//     assert!(std::mem::size_of_val(&slice) == 8);
+//     println!("success"); 
+// }
+
+// assertion failed: std::mem::size_of_val(&slice) == 8
+// note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+// error: process didn't exit successfully: `target\debug\examples\str.exe` (exit code: 101)
+
+// now lets try with 16
+
+
+fn main () {
+    let arr: [char; 3] = ['क', 'ख', 'म']; 
+
+    let slice = &arr[..2];
+
+    assert!(std::mem::size_of_val(&slice) == 16);
+    println!("success"); 
+}
+
+//    Compiling hello v0.1.0 (C:\Users\Dell\Downloads\hello)
+//     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.55s
+//      Running `target\debug\examples\str.exe`
+// success
