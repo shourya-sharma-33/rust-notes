@@ -83,6 +83,9 @@ fn main () {
 
 fn sum_multiply(nums:(i32, i32)) -> (i32, i32) {
     (nums.0 + nums.1, nums.0 * nums.1 )
+
+
+    
 }
 //    Compiling hello v0.1.0 (C:\Users\Dell\Downloads\hello)
 //     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.60s

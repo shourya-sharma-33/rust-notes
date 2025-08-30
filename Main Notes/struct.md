@@ -210,18 +210,142 @@ fn main () {
 
 
 
+```
+
+struct Person {
+    name : String,
+    age : u8,
+}
+fn main() {
+    println!("success");
+}
+
+fn build_person(name: String, age: u8) -> Person {
+    Person {
+       age,
+       name 
+    }
+}
+
+// // we simply built a function that makes an struct
+```
+
+```
+
+struct User {
+    active : bool,
+    username : String,
+    email : String,
+    sign_in_count : u64
+}
+
+fn main () {
+    let u1 : User = User {
+        email : String::from("smaiasjai.ajias"),
+        username : String::from("sasas"),
+        active : true,
+        sign_in_count : 1,
+    };
+
+    let u2 : User = set_email(u1);
+    println!("sucess");
+}
+
+fn set_email(u : User) -> User {
+    User  {
+        email : String::from("contact@h.dg"),
+        ..u
+    }
+}
+
+// 1.68s
+//      Running `target\debug\examples\struct.exe`
+// sucess
+```
 
 
 
+```
+
+#[derive(Debug)]
+struct Rectangle {
+    width : u32,
+    height : u32
+}
+
+fn main () {
+    let scale : u32 = 2;
+    let rect1 : Rectangle = Rectangle {
+        width : 30 * scale,
+        height : 50 
+    };
+
+    dbg!(&rect1);
+    println!("{}", rect1);
+}
 
 
+// we cant print struct like that, either use Debug 
+// or use {:?}
+```
 
+```
 
+#[derive(Debug)]
+struct Rectangle {
+    width : u32,
+    height : u32
+}
 
+fn main () {
+    let scale : u32 = 2;
+    let rect1 : Rectangle = Rectangle {
+        width : 30 * scale,
+        height : 50 
+    };
 
+    dbg!(&rect1);
+    println!("{:?}", rect1);
+}
 
+// s
+//      Running `target\debug\examples\struct.exe`
+// [examples\struct.rs:260:5] &rect1 = Rectangle {
+//     width: 60,
+//     height: 50,
+// }
+// Rectangle { width: 60, height: 50 }
+```
 
+```
 
+#[derive(Debug)]
+struct File {
+    name : String,
+    data : String
+}
+
+fn main () {
+    let f : File = File {
+        name : String::from("readme.md"),
+        data : "Rust By Practice".to_string()
+    };
+
+    let _name : String = f.name;
+
+    println!("{}, {}, {:?}", _name, f.data, f);
+
+}
+
+//     |
+// 285 |     let _name : String = f.name;
+//     |                          ------ value partially moved here   
+// 286 |
+// 287 |     println!("{}, {}, {:?}", _name, f.data, f);
+//     |                                             ^ value borrowed 
+// here after partial move
+//     |
+```
 
 
 
@@ -315,4 +439,30 @@ fn main () {
 }
 
 
+```
+
+```
+
+#[derive(Debug)]
+struct File {
+    name : String,
+    data : String
+}
+
+fn main () {
+    let f : File = File {
+        name : String::from("readme.md"),
+        data : "Rust By Practice".to_string()
+    };
+
+    let _name : String = f.name.clone();
+
+    println!("{}, {}, {:?}", _name, f.data, f);
+}
+
+//    Compiling hello v0.1.0 (C:\Users\Dell\Downloads\hello)
+//     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.92s
+//      Running `target\debug\examples\struct.exe`
+// readme.md, Rust By Practice, File { name: "readme.md", data: "Rust 
+// By Practice" }
 ```
