@@ -1,4 +1,4 @@
-# 🦀 Rust Notes 🚀
+# 🦀 Rust Notes :3
 
 Welcome to my **Rust programming language** notes repository!  
 This repo contains all my practice code, experiments, and small examples while I'm learning Rust.  
